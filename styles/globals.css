@@ -1,22 +1,30 @@
 * {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+:root {
+    --text-purple: rgb(67, 56, 202, 1);
+    --text-purple-dark: rgb(79, 70, 229, 1);
+    --text-black: rgb(17, 24, 39, 1);
+    --text-white-100: rgb(229, 231, 235, 1);
+    --text-subtitle-color: #000066;
 }
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background: url("/static/background.jpg");
-  background-size: cover;
-  background-position: 50%;
-  background-repeat: no-repeat;
-  color: #373b64;
+    max-width: 100vw;
+    overflow-x: hidden;
+    background: url("/static/background.jpg");
+    background-size: cover;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    color: #373b64;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 

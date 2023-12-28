@@ -1,0 +1,86 @@
+ .container {
+     margin-bottom: 6rem;
+ }
+
+ .title {
+     font-weight: 800;
+     color: var(--text-black);
+     letter-spacing: -0.025em;
+     font-size: 4.5rem;
+     line-height: 1;
+     text-shadow: 0.2rem 0.2rem 0.2rem var(--text-white-100);
+ }
+
+ .title1{
+     color: var(--text-purple);
+ }
+
+ .subTitle{
+     margin-top: 0.75em;
+     font-size: 1.5rem;
+     line-height: 2rem;
+     color: var(--text-subtitle-color);
+     font-weight: 500;
+ }
+
+ .buttonWrapper {
+     margin-top: 1.25rem;
+ }
+
+ .button {
+     background-color: var(--text-purple-dark);
+     color: snow;
+     cursor: pointer;
+     outline: 0;
+     border: 0;
+     padding: 1rem 2.5rem;
+     font-size: 1.125rem;
+     line-height: 1.75rem;
+ }
+
+ .button:hover {
+     background-color: midnightblue;
+ }
+
+ /**
+ sm: min-width: 640px;
+ md: min-width: 768px;
+ lg: min-width: 1024px;
+ xl: min-width: 1280px;
+ 2xl: min-width: 1536px;
+ **/
+
+ @media (min-width: 640px) {
+     .title {
+         font-size: 3rem;
+         line-height: 1;
+     }
+
+     .subTitle {
+         margin-top: 1.25rem;
+         max-width: 36rem;
+     }
+
+     .buttonWrapper {
+         display: flex;
+         margin-top: 2rem;
+     }
+ }
+
+ @media (min-width: 768px) {
+     .title {
+         font-size: 3.75rem;
+         line-height: 1;
+     }
+
+     .subTitle {
+         margin-top: 1.25rem;
+     }
+
+     .button {
+         padding: 1rem 2.5rem;
+         font-size: 1.125rem;
+         line-height: 1.75rem;
+     }
+ }
+
