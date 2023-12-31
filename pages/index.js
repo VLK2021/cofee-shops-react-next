@@ -1,11 +1,15 @@
-import Head from 'next/head'
-import {Inter} from 'next/font/google'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import {Inter} from 'next/font/google';
 
+import styles from '../styles/Home.module.css';
 import Banner from "../components/banner";
+import Card from "../components/card";
+import Image from "next/image";
+
 
 
 const inter = Inter({subsets: ['latin']})
+
 
 
 export default function Home() {
@@ -29,6 +33,22 @@ export default function Home() {
                     buttonText={'View stores nearby'}
                     handleOnClick={handleOnBannerButtonClick}
                 />
+                <div className={styles.heroImage}>
+                    <Image
+                        src="/static/hero-image.png"
+                        width={700}
+                        height={400}
+                        alt="hero image"
+                    />
+                </div>
+
+                <div className={styles.cardLayout}>
+                    <Card
+                        name='Dark coffee'
+                        imgUrl='/static/hero-image.png'
+                        href='/coffee-store/dark-coffee'
+                    />
+                </div>
             </main>
         </>
     )

@@ -1,24 +1,20 @@
 import React from 'react';
 
-import style from './banner.module.css';
-
+import styles from "./banner.module.css";
 
 const Banner = (props) => {
     return (
-        <div className={style.container}>
-           <h1 className={style.title}><span className={style.title1}>Coffee</span> shops</h1>
-
-           <p className={style.subTitle}>Discover your local coffee shops</p>
-
-            <div className={style.buttonWrapper}>
-                <button
-                    className={style.button}
-                    onClick={props.handleOnClick}
-                >
+        <div className={styles.container}>
+            <h1 className={styles.title}>
+                <span className={styles.title1}>Coffee</span>
+                <span className={styles.title2}>Shops</span>
+            </h1>
+            <p className={styles.subTitle}>Discover your local coffee stores!</p>
+            <div className={styles.buttonWrapper}>
+                <button className={styles.button} onClick={props.handleOnClick}>
                     {props.buttonText}
                 </button>
             </div>
-
         </div>
     );
 };
