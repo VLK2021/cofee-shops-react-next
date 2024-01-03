@@ -41,7 +41,7 @@ const CoffeeStore = (props) => {
     const router = useRouter();
     const [votingCount, setVotingCount] = useState(0);
 
-    const {name = "", address = "", neighbourhood = "", imgUrl = ""} = props.coffeeStore;
+    const {name = "", imgUrl = "", timezone, location:{address, neighborhood, postcode}} = props.coffeeStore;
 
     const handleUpvoteButton = () => {
 
@@ -91,7 +91,7 @@ const CoffeeStore = (props) => {
                             <p className={styles.text}>{address}</p>
                         </div>
                     )}
-                    {neighbourhood && (
+                    {postcode && (
                         <div className={styles.iconWrapper}>
                             <Image
                                 src="/static/icons/nearMe.svg"
@@ -99,7 +99,18 @@ const CoffeeStore = (props) => {
                                 height="24"
                                 alt="near me icon"
                             />
-                            <p className={styles.text}>{neighbourhood}</p>
+                            <p className={styles.text}>Post code: {postcode}</p>
+                        </div>
+                    )}
+                    {timezone && (
+                        <div className={styles.iconWrapper}>
+                            <Image
+                                src="/static/icons/nearMe.svg"
+                                width="24"
+                                height="24"
+                                alt="near me icon"
+                            />
+                            <p className={styles.text}>{timezone}</p>
                         </div>
                     )}
                     <div className={styles.iconWrapper}>
