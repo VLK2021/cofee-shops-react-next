@@ -10,22 +10,30 @@ import {fetchCoffeeStores} from "../../lib/coffee-stores";
 
 export async function getStaticProps(staticProps) {
     const params = staticProps.params;
+    console.log('params',params);
+
     const coffeeStores = await fetchCoffeeStores();
+    console.log('coffeeStores',coffeeStores);
+
+    const findCoffeeStoreById = coffeeStores.find(coffeeStore => {
+            return coffeeStore.id.toString() === params.id;
+        });
+    console.log('findCoffeeStoreById',findCoffeeStoreById);
 
     return {
         props: {
-            coffeeStore: coffeeStores.find(coffeeStore => {
-                return coffeeStore.fsq_id.toString() === params.id;
-            }),
+            coffeeStore: findCoffeeStoreById ? findCoffeeStoreById : {}
         },
     };
 }
 
 export async function getStaticPaths() {
     const coffeeStores = await fetchCoffeeStores();
-    const paths = coffeeStores.map(coffeeSore => {
+    const paths = coffeeStores.map(coffeeStore => {
         return {
-            params: {id: coffeeSore.fsq_id.toString()},
+            params: {
+                id: coffeeStore.id.toString()
+            },
         };
     });
 
@@ -37,11 +45,13 @@ export async function getStaticPaths() {
 
 
 const CoffeeStore = (props) => {
-    console.log(props);
+    const { coffeeStore } = props;
+    console.log(coffeeStore);
+
     const router = useRouter();
     const [votingCount, setVotingCount] = useState(0);
 
-    const {name = "", imgUrl = "", timezone, location:{address, neighborhood, postcode}} = props.coffeeStore;
+    const {id, name, imgUrl, address, postcode, timezone} = coffeeStore;
 
     const handleUpvoteButton = () => {
 
@@ -50,8 +60,6 @@ const CoffeeStore = (props) => {
     if (router.isFallback) {
         return <div>Loading...</div>;
     }
-
-
 
 
     return (
@@ -74,7 +82,7 @@ const CoffeeStore = (props) => {
                             width={600}
                             height={360}
                             className={styles.storeImg}
-                            alt={name}
+                            alt={name || 'foto'}
                         />
                     </div>
                 </div>
