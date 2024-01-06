@@ -161,3 +161,5 @@ const CoffeeStore = (initialProps) => {
 };
 
 export default CoffeeStore;
+
+// patRuNZ8uFVSDrk0J.553fd558cf756958810777d8a070a3bd577071f99f39441df95c0825029ee414
