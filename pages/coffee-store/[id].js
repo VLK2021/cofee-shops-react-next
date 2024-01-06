@@ -6,8 +6,8 @@ import Image from "next/image";
 
 import styles from '../../styles/coffee-store.module.css';
 import {fetchCoffeeStores} from "../../lib/coffee-stores";
-import {StoreContext} from "../_app";
 import {isEmpty} from "../../utils";
+import {StoreContext} from "../../store/store-context";
 
 
 export async function getStaticProps(staticProps) {
