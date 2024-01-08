@@ -6,40 +6,45 @@ const table = base('coffee-stores');
 
 const createCoffeeStore = async (req, res) => {
     if (req.method === 'POST') {
-        const {id, name, imgUrl, address, postcode, timezone, voting } = req.body;
+        const {id, name, imgUrl, address, postcode, timezone, voting} = req.body;
 
         try {
-            const findCoffeeStoreRecords = await table
-                .select({
-                    filterByFormula: `id=${id}`,
-                })
-                .firstPage();
+            if (id) {
+                const findCoffeeStoreRecords = await table
+                    .select({
+                        filterByFormula: `id=${id}`,
+                    })
+                    .firstPage();
 
-            console.log({findCoffeeStoreRecords});
-
-            if (findCoffeeStoreRecords.length !== 0) {
-                const records = findCoffeeStoreRecords.map(record => {
-                    return {...record.fields};
-                });
-                res.json(records);
-            } else {
-                const createRecords = await table.create([
-                    {
-                        fields: {id, name, address, postcode, timezone, voting, imgUrl}
+                if (findCoffeeStoreRecords.length !== 0) {
+                    const records = findCoffeeStoreRecords.map(record => {
+                        return {...record.fields};
+                    });
+                    res.json(records);
+                } else {
+                    if (name) {
+                        const createRecords = await table.create([
+                            {
+                                fields: {id, name, address, postcode, timezone, voting, imgUrl}
+                            }
+                        ]);
+                        const records = createRecords.map(record => {
+                            return {...record.fields};
+                        });
+                        res.json({records});
+                    } else {
+                        res.status(400).json({message: "Id or name is missing"});
                     }
-                ]);
-                const records = createRecords.map(record => {
-                    return {...record.fields};
-                });
-                res.json({records});
+                }
+            } else {
+                res.status(400).json({message: "Id is missing"});
             }
         } catch (err) {
-            console.error('Error finding store', err);
+            console.error("Error creating or finding a store", err);
             res.status(500);
-            res.json({message: 'Error finding store', err});
+            res.json({message: "Error creating or finding a store", err});
         }
     }
-
 };
 
 export default createCoffeeStore;
