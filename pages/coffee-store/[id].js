@@ -12,16 +12,11 @@ import {StoreContext} from "../../store/store-context";
 
 export async function getStaticProps(staticProps) {
     const params = staticProps.params;
-    console.log('params',params);
-
     const coffeeStores = await fetchCoffeeStores();
-    console.log('coffeeStores',coffeeStores);
 
     const findCoffeeStoreById = coffeeStores.find(coffeeStore => {
-            return coffeeStore.id.toString() === params.id;
-        });
-    console.log('findCoffeeStoreById',findCoffeeStoreById);
-
+        return coffeeStore.id.toString() === params.id;
+    });
     return {
         props: {
             coffeeStore: findCoffeeStoreById ? findCoffeeStoreById : {}
@@ -38,7 +33,6 @@ export async function getStaticPaths() {
             },
         };
     });
-
     return {
         paths,
         fallback: true,
@@ -57,23 +51,51 @@ const CoffeeStore = (initialProps) => {
     const id = router.query.id;
 
     const [coffeeStore, setCoffeeStore] = useState(initialProps.coffeeStore || {});
-
     const {state: { coffeeStores }} = useContext(StoreContext);
+
+
+    const handleCreateCoffeeStore = async (coffeeStore) => {
+        try {
+            const {id, name, imgUrl, address, postcode, timezone, voting} = coffeeStore;
+
+            const response = await fetch("/api/createCoffeeStore", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    id,
+                    name,
+                    voting: 0,
+                    imgUrl,
+                    postcode,
+                    timezone,
+                    address: address || "",
+                }),
+            });
+
+            const dbCoffeeStore = await response.json();
+        } catch (err) {
+            console.error("Error creating coffee store", err);
+        }
+    };
 
     useEffect(() => {
         if (isEmpty(initialProps.coffeeStore)) {
             if (coffeeStores.length > 0) {
-                const findCoffeeStoreById = coffeeStores.find((coffeeStore) => {
-                    return coffeeStore.id.toString() === id; //dynamic id
+                const coffeeStoreFromContext = coffeeStores.find((coffeeStore) => {
+                    return coffeeStore.id.toString() === id;
                 });
-                setCoffeeStore(findCoffeeStoreById);
-                // handleCreateCoffeeStore(findCoffeeStoreById);
+                if (coffeeStoreFromContext) {
+                    setCoffeeStore(coffeeStoreFromContext);
+                    handleCreateCoffeeStore(coffeeStoreFromContext);
+                }
             }
         } else {
-            // SSG
-            // handleCreateCoffeeStore(initialProps.coffeeStore);
+            handleCreateCoffeeStore(initialProps.coffeeStore);
         }
-    }, [id]);
+    }, [id, initialProps.coffeeStore]);
+
 
     const {name, imgUrl, address, postcode, timezone} = coffeeStore;
 

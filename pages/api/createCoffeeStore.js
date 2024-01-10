@@ -7,11 +7,9 @@ const createCoffeeStore = async (req, res) => {
 
         try {
             if (id) {
-                const findCoffeeStoreRecords = await table.select({filterByFormula: `id=${id}`}).firstPage();
-
+                const findCoffeeStoreRecords = await table.select({filterByFormula: `id="${id}"`}).firstPage();
                 if (findCoffeeStoreRecords.length !== 0) {
                     const records = getMinifiedRecords(findCoffeeStoreRecords);
-
                     res.json(records);
                 } else {
                     if (name) {
@@ -20,8 +18,9 @@ const createCoffeeStore = async (req, res) => {
                         ]);
 
                         const records = getMinifiedRecords(createRecords);
-                        res.json({records});
-                    } else {
+                        res.json(records);
+
+                } else {
                         res.status(400).json({message: "Id or name is missing"});
                     }
                 }
@@ -37,5 +36,6 @@ const createCoffeeStore = async (req, res) => {
 };
 
 export default createCoffeeStore;
+
 
 

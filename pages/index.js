@@ -58,8 +58,8 @@ export default function Home(props) {
     }, [latLong, dispatch]);
 
     const handleOnBannerButtonClick = () => {
-        handleTrackLocation()
-    }
+        handleTrackLocation();
+    };
 
 
     return (
